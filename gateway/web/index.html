@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CatSense V0 Live Logger</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>CatSense V0</h1>
+          <p id="outputPath">未开始采集</p>
+        </div>
+        <div class="status">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">idle</span>
+        </div>
+      </header>
+
+      <section class="controls">
+        <label>
+          猫咪编号
+          <input id="catId" value="cat001" autocomplete="off" />
+        </label>
+        <label>
+          采样率
+          <select id="rate">
+            <option value="25" selected>25 Hz</option>
+            <option value="50">50 Hz</option>
+          </select>
+        </label>
+        <label>
+          BLE 设备
+          <input id="device" value="CatSense-V0" autocomplete="off" />
+        </label>
+        <label>
+          保存方式
+          <select id="saveMode">
+            <option value="daily" selected>按天一个 CSV</option>
+            <option value="session">每次一个 CSV</option>
+            <option value="preview">只预览不保存</option>
+          </select>
+        </label>
+        <button id="startBtn" class="primary">开始记录</button>
+        <button id="stopBtn" disabled>停止记录</button>
+      </section>
+
+      <section class="metrics">
+        <div><span>样本</span><strong id="samples">0</strong></div>
+        <div><span>时长</span><strong id="duration">0.0s</strong></div>
+        <div><span>速率</span><strong id="observedRate">0.0Hz</strong></div>
+        <div><span>电池</span><strong id="battery">--</strong></div>
+      </section>
+
+      <section class="device-panel">
+        <div class="device-head">
+          <div>
+            <h2>设备管理</h2>
+            <p id="deviceStatus">未连接</p>
+            <p id="firmwareInfo" class="firmware-info">读取固件包状态中...</p>
+          </div>
+          <div class="device-actions">
+            <div class="action-group firmware-group" aria-label="固件升级">
+              <button data-device-action="flash" class="primary">刷写固件</button>
+              <button data-device-action="flash_safe" class="warning">慢速重试</button>
+              <a id="firmwareDownload" class="button-link" href="/firmware/latest.zip" download>下载固件包</a>
+              <button data-device-action="ota">进入 OTA</button>
+              <button data-device-action="reboot_dfu">重启 DFU</button>
+            </div>
+            <div class="action-group" aria-label="模式和缓存">
+              <button data-device-action="status">读取状态</button>
+              <button data-device-action="collect">采集模式</button>
+              <button data-device-action="daily">日常模式</button>
+              <button data-device-action="upload">拉取缓存</button>
+              <button data-device-action="clear" class="danger">清空缓存</button>
+            </div>
+          </div>
+        </div>
+        <div id="deviceProgress" class="device-progress hidden">
+          <div class="device-progress-meta">
+            <strong id="deviceProgressTitle">设备操作</strong>
+            <span id="deviceProgressPercent">0%</span>
+          </div>
+          <div class="device-progress-track">
+            <span id="deviceProgressFill"></span>
+          </div>
+          <p id="deviceProgressMessage">等待开始</p>
+        </div>
+        <pre id="deviceOutput" class="device-output">读取状态可查看模式、电池、发射功率和缓存大小。OTA 推荐使用“刷写固件”；失败时用“慢速重试”。手机备用流程：下载固件包，进入 OTA，再用 nRF Connect 或 Bluefruit Connect 刷入。</pre>
+      </section>
+
+      <section class="workspace">
+        <div class="chart-pane">
+          <div class="chart-head">
+            <div>
+              <h2>三轴加速度</h2>
+              <p>最近窗口实时曲线，单位 mg</p>
+            </div>
+            <div class="legend">
+              <span class="x">ax</span>
+              <span class="y">ay</span>
+              <span class="z">az</span>
+            </div>
+          </div>
+          <canvas id="chart" width="1200" height="520"></canvas>
+        </div>
+
+        <aside class="side">
+          <section class="prediction-panel">
+            <h2>实时预测</h2>
+            <div class="prediction-current">
+              <strong id="predictionLabel">未就绪</strong>
+              <span id="predictionScore">等待窗口数据</span>
+            </div>
+            <div id="predictionTop" class="prediction-top"></div>
+          </section>
+
+          <section class="marker-panel">
+            <h2>手动标签</h2>
+            <p class="label-state">当前：<strong id="currentLabel">未标记</strong></p>
+            <div class="behavior-grid">
+              <button data-label="rest" disabled>休息</button>
+              <button data-label="parkour" disabled>跑酷</button>
+              <button data-label="walk" disabled>走动</button>
+              <button data-label="play" disabled>玩耍</button>
+              <button data-label="groom" disabled>舔毛</button>
+              <button data-label="eat" disabled>进食</button>
+            </div>
+            <button id="cancelLabelBtn" class="cancel-label" disabled>取消</button>
+            <div id="markerList" class="marker-list"></div>
+          </section>
+
+          <section class="log-panel">
+            <h2>日志</h2>
+            <div id="logs" class="logs"></div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="processing-panel">
+        <div class="processing-head">
+          <div>
+            <h2>数据处理</h2>
+            <p id="processStatus">未运行</p>
+          </div>
+          <div class="processing-actions">
+            <button data-process="report">检查数据</button>
+            <button data-process="build">构建数据</button>
+            <button data-process="train">训练模型</button>
+            <button data-process="evaluate">Session 评估</button>
+            <button data-process="all" class="primary">一键全部</button>
+          </div>
+        </div>
+        <pre id="processOutput" class="process-output">点击按钮后会显示运行结果。</pre>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

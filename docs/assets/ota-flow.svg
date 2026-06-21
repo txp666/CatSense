@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="390" viewBox="0 0 1120 390" role="img" aria-labelledby="title desc">
+  <title id="title">CatSense V0 OTA flow</title>
+  <desc id="desc">Recommended firmware OTA flow with slow retry, DFU reboot, and mobile fallback.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7fafb; }
+      .box { fill: #ffffff; stroke: #cfd8dd; stroke-width: 2; rx: 10; }
+      .warn { fill: #fff9eb; stroke: #d7b36b; stroke-width: 2; rx: 10; }
+      .ok { fill: #edf8f1; stroke: #80bd95; stroke-width: 2; rx: 10; }
+      .main { fill: #172126; font: 700 18px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; }
+      .sub { fill: #53656d; font: 14px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; }
+      .arrow { stroke: #0b6f85; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .fallback { stroke: #b7791f; stroke-width: 3; fill: none; marker-end: url(#warnArrow); stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0b6f85"/>
+    </marker>
+    <marker id="warnArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#b7791f"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1120" height="390"/>
+
+  <g transform="translate(45 62)">
+    <rect class="box" width="155" height="100"/>
+    <text class="main" x="77" y="35" text-anchor="middle">Build</text>
+    <text class="sub" x="77" y="62" text-anchor="middle">pio run</text>
+    <text class="sub" x="77" y="82" text-anchor="middle">firmware.zip</text>
+  </g>
+
+  <g transform="translate(245 62)">
+    <rect class="box" width="155" height="100"/>
+    <text class="main" x="77" y="35" text-anchor="middle">Flash Firmware</text>
+    <text class="sub" x="77" y="62" text-anchor="middle">web backend</text>
+    <text class="sub" x="77" y="82" text-anchor="middle">starts DFU</text>
+  </g>
+
+  <g transform="translate(445 62)">
+    <rect class="box" width="155" height="100"/>
+    <text class="main" x="77" y="35" text-anchor="middle">BLE DFU</text>
+    <text class="sub" x="77" y="62" text-anchor="middle">send image</text>
+    <text class="sub" x="77" y="82" text-anchor="middle">validate</text>
+  </g>
+
+  <g transform="translate(645 62)">
+    <rect class="box" width="155" height="100"/>
+    <text class="main" x="77" y="35" text-anchor="middle">Activate</text>
+    <text class="sub" x="77" y="62" text-anchor="middle">reset command</text>
+    <text class="sub" x="77" y="82" text-anchor="middle">disconnect DFU</text>
+  </g>
+
+  <g transform="translate(845 62)">
+    <rect class="ok" width="220" height="100"/>
+    <text class="main" x="110" y="35" text-anchor="middle">CatSense-V0</text>
+    <text class="sub" x="110" y="62" text-anchor="middle">advertising again</text>
+    <text class="sub" x="110" y="82" text-anchor="middle">read status</text>
+  </g>
+
+  <path class="arrow" d="M200 112 H235"/>
+  <path class="arrow" d="M400 112 H435"/>
+  <path class="arrow" d="M600 112 H635"/>
+  <path class="arrow" d="M800 112 H835"/>
+
+  <g transform="translate(300 235)">
+    <rect class="warn" width="180" height="90"/>
+    <text class="main" x="90" y="34" text-anchor="middle">Slow Retry</text>
+    <text class="sub" x="90" y="60" text-anchor="middle">lower BLE pressure</text>
+  </g>
+
+  <g transform="translate(520 235)">
+    <rect class="warn" width="180" height="90"/>
+    <text class="main" x="90" y="34" text-anchor="middle">Reboot DFU</text>
+    <text class="sub" x="90" y="60" text-anchor="middle">no duplicate flash</text>
+  </g>
+
+  <g transform="translate(740 235)">
+    <rect class="warn" width="220" height="90"/>
+    <text class="main" x="110" y="34" text-anchor="middle">Mobile Fallback</text>
+    <text class="sub" x="110" y="60" text-anchor="middle">nRF Connect / Bluefruit</text>
+  </g>
+
+  <path class="fallback" d="M525 165 C480 205 420 210 390 232"/>
+  <path class="fallback" d="M730 165 C705 205 650 210 615 232"/>
+  <path class="fallback" d="M335 165 C470 345 780 345 850 330"/>
+  <text class="sub" x="560" y="365" text-anchor="middle">Use fallback paths only when desktop BLE or bootloader reset is unreliable.</text>
+</svg>

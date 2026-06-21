@@ -1,0 +1,12 @@
+host_time_iso,device_ms,seq,ax_mg,ay_mg,az_mg,battery_mv,label,cat_id,device_id,marker,marker_time_iso,marker_note
+2026-06-21T12:00:00.000,1000,0,20,-35,1018,3970,walk,cat001,CatSense-V0,start:walk,2026-06-21T12:00:00.000,synthetic example
+2026-06-21T12:00:00.040,1040,1,45,-20,1004,3970,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.080,1080,2,72,5,982,3970,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.120,1120,3,88,34,960,3970,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.160,1160,4,48,58,988,3970,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.200,1200,5,10,38,1020,3970,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.240,1240,6,-42,10,1034,3969,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.280,1280,7,-80,-24,1008,3969,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.320,1320,8,-65,-50,984,3969,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.360,1360,9,-18,-44,1002,3969,walk,cat001,CatSense-V0,,,
+2026-06-21T12:00:00.400,1400,10,22,-12,1026,3969,walk,cat001,CatSense-V0,end,2026-06-21T12:00:00.400,synthetic example end

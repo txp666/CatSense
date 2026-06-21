@@ -1,0 +1,26 @@
+.pio/
+.vscode/
+.idea/
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+coverage/
+output/
+.playwright-mcp/
+.playwright-cli/
+*.log
+
+# Raw behavior recordings can contain private home/pet data.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+models/*
+!models/.gitkeep

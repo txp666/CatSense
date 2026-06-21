@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="320" viewBox="0 0 1120 320" role="img" aria-labelledby="title desc">
+  <title id="title">CatSense V0 system flow</title>
+  <desc id="desc">Hardware, BLE gateway, web logger, CSV data, model training, and realtime preview flow.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7fafb; }
+      .box { fill: #ffffff; stroke: #cfd8dd; stroke-width: 2; rx: 10; }
+      .main { fill: #0b6f85; font: 700 20px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; }
+      .sub { fill: #53656d; font: 14px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; }
+      .arrow { stroke: #0b6f85; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .band { fill: #e8f3f6; stroke: #b8d6df; stroke-width: 1.5; rx: 8; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#0b6f85"/>
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1120" height="320"/>
+  <rect class="band" x="30" y="32" width="1060" height="256"/>
+
+  <g transform="translate(55 82)">
+    <rect class="box" width="150" height="120"/>
+    <text class="main" x="75" y="38" text-anchor="middle">XIAO Sense</text>
+    <text class="sub" x="75" y="68" text-anchor="middle">LSM6DS3 IMU</text>
+    <text class="sub" x="75" y="92" text-anchor="middle">Battery + BLE</text>
+  </g>
+
+  <g transform="translate(250 82)">
+    <rect class="box" width="150" height="120"/>
+    <text class="main" x="75" y="38" text-anchor="middle">BLE UART</text>
+    <text class="sub" x="75" y="68" text-anchor="middle">CS0 samples</text>
+    <text class="sub" x="75" y="92" text-anchor="middle">Commands</text>
+  </g>
+
+  <g transform="translate(445 82)">
+    <rect class="box" width="150" height="120"/>
+    <text class="main" x="75" y="38" text-anchor="middle">Gateway</text>
+    <text class="sub" x="75" y="68" text-anchor="middle">Python + Bleak</text>
+    <text class="sub" x="75" y="92" text-anchor="middle">Local server</text>
+  </g>
+
+  <g transform="translate(640 82)">
+    <rect class="box" width="150" height="120"/>
+    <text class="main" x="75" y="38" text-anchor="middle">Web UI</text>
+    <text class="sub" x="75" y="68" text-anchor="middle">Live chart</text>
+    <text class="sub" x="75" y="92" text-anchor="middle">Manual labels</text>
+  </g>
+
+  <g transform="translate(835 82)">
+    <rect class="box" width="150" height="120"/>
+    <text class="main" x="75" y="38" text-anchor="middle">CSV + Model</text>
+    <text class="sub" x="75" y="68" text-anchor="middle">Data QA</text>
+    <text class="sub" x="75" y="92" text-anchor="middle">Baseline train</text>
+  </g>
+
+  <path class="arrow" d="M205 142 H240"/>
+  <path class="arrow" d="M400 142 H435"/>
+  <path class="arrow" d="M595 142 H630"/>
+  <path class="arrow" d="M790 142 H825"/>
+  <path class="arrow" d="M910 205 C830 270 700 270 715 210"/>
+
+  <text class="sub" x="715" y="260" text-anchor="middle">trained baseline feeds realtime prediction preview</text>
+</svg>
