@@ -128,6 +128,11 @@ BLE advertising
 
 ## OTA 升级
 
+GitHub Actions 会在每次 push 和 PR 时编译固件，并上传 `catsense-v0-firmware` 产物。进入仓库的 `Actions` 页面，打开最新 `CI` 运行即可下载。产物里包含：
+
+- `catsense-v0-firmware.zip`：用于网页 OTA/DFU、nRF Connect 或 Bluefruit Connect。
+- `catsense-v0-firmware.hex`：用于 USB 烧录或调试流程。
+
 网页“设备管理”面板提供：
 
 - “刷写固件”：电脑后端通过 BLE 直接刷入当前 `firmware.zip`，推荐优先使用。

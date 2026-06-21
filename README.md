@@ -102,6 +102,15 @@ BLE advertising
 
 If the board prints `IMU init failed`, confirm that the hardware is the XIAO nRF52840 Sense, not the non-Sense model.
 
+## Firmware Artifacts
+
+GitHub Actions builds downloadable firmware on every push and pull request.
+Open the latest `CI` run and download the `catsense-v0-firmware` artifact. It
+contains:
+
+- `catsense-v0-firmware.zip`: BLE OTA/DFU package for the web logger, nRF Connect, or Bluefruit Connect.
+- `catsense-v0-firmware.hex`: firmware image for USB flashing/debug workflows.
+
 ## Run Python Logger
 
 Use Python 3.10 or newer:

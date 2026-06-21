@@ -19,3 +19,27 @@ jobs:
         run: python -m py_compile gateway/*.py
       - name: Check browser JavaScript syntax
         run: node --check gateway/web/app.js
+
+  firmware-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install PlatformIO
+        run: python -m pip install --upgrade platformio
+      - name: Build firmware
+        run: pio run
+        working-directory: firmware/xiao_nrf52840_sense
+      - name: Collect firmware artifacts
+        run: |
+          mkdir -p dist/firmware
+          cp firmware/xiao_nrf52840_sense/.pio/build/seeed_xiao_nrf52840_sense/firmware.zip dist/firmware/catsense-v0-firmware.zip
+          cp firmware/xiao_nrf52840_sense/.pio/build/seeed_xiao_nrf52840_sense/firmware.hex dist/firmware/catsense-v0-firmware.hex
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: catsense-v0-firmware
+          path: dist/firmware/*
+          if-no-files-found: error

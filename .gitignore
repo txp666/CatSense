@@ -13,6 +13,7 @@ env/
 node_modules/
 coverage/
 output/
+dist/
 .playwright-mcp/
 .playwright-cli/
 *.log

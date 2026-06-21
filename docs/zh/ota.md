@@ -15,6 +15,19 @@ CatSense V0 支持 BLE OTA/DFU 升级。推荐使用网页里的“刷写固件�
 firmware/xiao_nrf52840_sense/.pio/build/seeed_xiao_nrf52840_sense/firmware.zip
 ```
 
+## GitHub Actions 产物
+
+仓库的 `CI` 会自动编译固件，并上传 `catsense-v0-firmware` 产物。下载后可以看到：
+
+- `catsense-v0-firmware.zip`：BLE OTA/DFU 固件包。
+- `catsense-v0-firmware.hex`：USB 烧录或调试用固件镜像。
+
+如果要让本地网页“刷写固件”直接使用 Actions 下载的包，把 `catsense-v0-firmware.zip` 放到下面位置并改名为 `firmware.zip`：
+
+```text
+firmware/xiao_nrf52840_sense/.pio/build/seeed_xiao_nrf52840_sense/firmware.zip
+```
+
 ## 网页直接刷写
 
 1. 打开 CatSense 网页。
